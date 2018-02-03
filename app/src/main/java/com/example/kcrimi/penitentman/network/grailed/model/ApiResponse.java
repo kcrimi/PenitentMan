@@ -34,4 +34,12 @@ public class ApiResponse<T> {
             }
         }
     }
+
+    public T getData() {
+        return data;
+    }
+
+    public Metadata getMetadata() {
+        return metadata;
+    }
 }

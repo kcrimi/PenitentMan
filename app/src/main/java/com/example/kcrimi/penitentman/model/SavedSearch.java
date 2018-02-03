@@ -1,4 +1,4 @@
-package com.example.kcrimi.penitentman.network.grailed.model;
+package com.example.kcrimi.penitentman.model;
 
 import com.google.gson.annotations.SerializedName;
 

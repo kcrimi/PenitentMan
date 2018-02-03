@@ -1,8 +1,8 @@
 package com.example.kcrimi.penitentman.network.grailed;
 
 import com.example.kcrimi.penitentman.network.grailed.model.ApiResponse;
-import com.example.kcrimi.penitentman.network.grailed.model.Article;
-import com.example.kcrimi.penitentman.network.grailed.model.SavedSearch;
+import com.example.kcrimi.penitentman.model.Article;
+import com.example.kcrimi.penitentman.model.SavedSearch;
 
 import java.util.List;
 
