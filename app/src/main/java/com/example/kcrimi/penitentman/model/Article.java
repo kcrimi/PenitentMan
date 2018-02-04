@@ -29,4 +29,12 @@ public class Article {
     @SerializedName("content_type")
     String contentType;
     String position;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }
