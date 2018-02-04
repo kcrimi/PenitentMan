@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">PenitentMan</string>
+    <string name="app_name">Penitent Man</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="articles">Articles</string>
+    <string name="saved_searches">Saved Searches</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!--Error Messages-->
+    <string name="error_retrieving_articles">Encountered an error retrieving articles.</string>
 </resources>

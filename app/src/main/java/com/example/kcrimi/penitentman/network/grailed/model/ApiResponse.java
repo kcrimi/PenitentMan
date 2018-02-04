@@ -33,6 +33,10 @@ public class ApiResponse<T> {
                 return Integer.valueOf(segments[segments.length - 1]);
             }
         }
+
+        public Pagination getPagination() {
+            return pagination;
+        }
     }
 
     public T getData() {
