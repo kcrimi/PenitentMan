@@ -54,6 +54,6 @@ public class SavedSearch {
     }
 
     public String getImageUrl() {
-        return Grailed.getResizedImageUrl(imageUrl, 100);
+        return Grailed.getResizedImageUrl(imageUrl, 150);
     }
 }
