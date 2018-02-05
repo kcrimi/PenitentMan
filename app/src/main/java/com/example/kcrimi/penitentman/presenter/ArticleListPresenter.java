@@ -1,21 +1,16 @@
 package com.example.kcrimi.penitentman.presenter;
 
 import com.example.kcrimi.penitentman.model.Article;
-import com.example.kcrimi.penitentman.network.Callback;
-import com.example.kcrimi.penitentman.network.ErrorCallback;
 import com.example.kcrimi.penitentman.network.grailed.Grailed;
 import com.example.kcrimi.penitentman.network.grailed.model.ApiResponse;
 import com.example.kcrimi.penitentman.view.ArticleListFragment;
 import com.example.kcrimi.penitentman.view.adapter.ArticleAdapter;
-import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import retrofit2.Response;
 
 /**
  * Created by kcrimi on 2/3/18.

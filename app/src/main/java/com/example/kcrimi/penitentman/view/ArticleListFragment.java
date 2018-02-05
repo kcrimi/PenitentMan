@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.kcrimi.penitentman.R;
 import com.example.kcrimi.penitentman.presenter.ArticleListPresenter;
 import com.example.kcrimi.penitentman.view.adapter.ArticleAdapter;
-import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 import com.example.ui_utils.recycler_view.InfiniteRecyclerListener;
 import com.example.ui_utils.recycler_view.decoration.DividerItemDecoration;
 

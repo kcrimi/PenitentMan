@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.kcrimi.penitentman.R;
-import com.example.kcrimi.penitentman.presenter.ArticleListPresenter;
 import com.example.kcrimi.penitentman.presenter.SavedSearchListPresenter;
 import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
-import com.example.ui_utils.recycler_view.InfiniteRecyclerListener;
 import com.example.ui_utils.recycler_view.decoration.DividerItemDecoration;
 
 public class SavedSearchListFragment extends BaseFragment {
