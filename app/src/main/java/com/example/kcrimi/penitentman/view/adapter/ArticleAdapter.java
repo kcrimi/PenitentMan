@@ -1,19 +1,25 @@
 package com.example.kcrimi.penitentman.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.kcrimi.penitentman.R;
 import com.example.kcrimi.penitentman.presenter.ArticleListPresenter;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
 
     private final ArticleListPresenter presenter;
+    private final Context context;
 
-    public ArticleAdapter(ArticleListPresenter presenter) {
+    public ArticleAdapter(Context context, ArticleListPresenter presenter) {
+        this.context = context;
         this.presenter = presenter;
     }
 
@@ -41,23 +47,32 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     }
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView heroImage;
         private final TextView titleText;
-        private final TextView authorText;
+        private final TextView publishedText;
         public final View view;
 
         public ArticleViewHolder(View view) {
             super(view);
             this.view = view;
+            heroImage = view.findViewById(R.id.hero);
             titleText = view.findViewById(R.id.title_text);
-            authorText = view.findViewById(R.id.author_text);
+            publishedText = view.findViewById(R.id.published_text);
         }
 
         public void setTitleText(String name) {
             titleText.setText(name);
         }
 
-        public void setAuthorText(String author) {
-            authorText.setText(author);
+        public void setPublishedText(String date) {
+            publishedText.setText(date);
+        }
+
+        public void setHeroImage(String url) {
+            Log.d("KEVIN", url);
+            Glide.with(context)
+                    .load(url)
+                    .into(heroImage);
         }
     }
 }

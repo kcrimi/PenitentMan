@@ -41,12 +41,12 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
             public void update(ApiResponse<List<Article>> response) {
                 lastLoadedPage = response.getMetadata().getPagination().getCurrentPage();
                 articles.addAll(response.getData());
-                view.refreshArticleList();
+                getView().refreshArticleList();
             }
         }, new ErrorCallback() {
             @Override
             public void error(Response response, Throwable throwable) {
-                view.showArticleApiError();
+                getView().showArticleApiError();
             }
         });
     }
@@ -62,6 +62,7 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
     public void bindArticle(ArticleAdapter.ArticleViewHolder holder, int position) {
         Article article = articles.get(position);
         holder.setTitleText(article.getTitle());
-        holder.setAuthorText(article.getAuthor());
+        holder.setPublishedText(article.getPublishedAt());
+        holder.setHeroImage(article.getHero());
     }
 }

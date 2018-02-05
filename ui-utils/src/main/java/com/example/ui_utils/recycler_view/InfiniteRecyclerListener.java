@@ -1,4 +1,4 @@
-package com.example.ui_utils;
+package com.example.ui_utils.recycler_view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

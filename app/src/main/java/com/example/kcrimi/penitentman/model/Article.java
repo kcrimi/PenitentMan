@@ -1,7 +1,9 @@
 package com.example.kcrimi.penitentman.model;
 
+import com.example.kcrimi.penitentman.network.grailed.Grailed;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -36,5 +38,14 @@ public class Article {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getPublishedAt() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd");
+        return simpleDateFormat.format(publishedAt);
+    }
+
+    public String getHero() {
+        return Grailed.getResizedImageUrl(hero, 300);
     }
 }

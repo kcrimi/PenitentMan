@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_0">#00000000</color>
+    <color name="black_10">#16000000</color>
+    <color name="black_20">#32000000</color>
+    <color name="black_30">#48000000</color>
+    <color name="black_40">#64000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_60">#96000000</color>
+    <color name="white">#FFF</color>
+    <color name="white_70">#9effffff</color>
+</resources>

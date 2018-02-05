@@ -36,6 +36,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Grailed {
 
     private static final String BASE_URL = "https://www.grailed.com/api/";
+    private static final String CDN_FORMAT = "https://cdn.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/" +
+            "rotate=deg:exif/rotate=deg:0/resize=width:%d," +
+            "fit:crop/output=format:jpg,compress:true,quality:95/%s";
     private static Grailed instance;
     private final GrailedService grailedService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -91,5 +94,9 @@ public class Grailed {
                 errorCallback.error(null, t);
             }
         });
+    }
+
+    public static String getResizedImageUrl(String url, int width) {
+        return String.format(CDN_FORMAT, width, url);
     }
 }

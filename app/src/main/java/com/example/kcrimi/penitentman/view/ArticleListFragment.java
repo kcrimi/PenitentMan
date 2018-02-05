@@ -1,8 +1,8 @@
 package com.example.kcrimi.penitentman.view;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +12,14 @@ import android.widget.Toast;
 import com.example.kcrimi.penitentman.R;
 import com.example.kcrimi.penitentman.presenter.ArticleListPresenter;
 import com.example.kcrimi.penitentman.view.adapter.ArticleAdapter;
-import com.example.ui_utils.InfiniteRecyclerListener;
+import com.example.ui_utils.recycler_view.InfiniteRecyclerListener;
+import com.example.ui_utils.recycler_view.decoration.DividerItemDecoration;
 
 public class ArticleListFragment extends BaseFragment {
 
-    private static final int COLUMN_COUNT = 3;
     private ArticleListPresenter presenter = new ArticleListPresenter(this);
-    private ArticleAdapter adapter = new ArticleAdapter(presenter);
+    private ArticleAdapter adapter;
+    private RecyclerView recyclerView;
 
     public ArticleListFragment() {
     }
@@ -28,8 +29,10 @@ public class ArticleListFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new ArticleAdapter(getContext(), presenter);
+        recyclerView.setAdapter(adapter);
         presenter.onViewAttached();
     }
 
@@ -37,29 +40,19 @@ public class ArticleListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
             View view = super.onCreateView(inflater,container, savedInstanceState);
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
-            recyclerView.setAdapter(adapter);
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    if (dy > 0) {
-                        GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-                        int viewedItems = layoutManager.findLastVisibleItemPosition() + 1;
-                        int totalItems = layoutManager.getItemCount();
-                        if (viewedItems > .8 * totalItems);
-                    }
-                }
-            });
+            recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.addOnScrollListener(new InfiniteRecyclerListener() {
                 @Override
                 public void triggerCallback() {
                     presenter.retrieveMoreArticles();
                 }
             });
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         return view;
     }
+
+
 
     public void refreshArticleList() {
         adapter.notifyDataSetChanged();
