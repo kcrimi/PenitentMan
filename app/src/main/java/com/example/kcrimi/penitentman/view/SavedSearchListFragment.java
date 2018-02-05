@@ -11,28 +11,28 @@ import android.widget.Toast;
 
 import com.example.kcrimi.penitentman.R;
 import com.example.kcrimi.penitentman.presenter.ArticleListPresenter;
-import com.example.kcrimi.penitentman.view.adapter.ArticleAdapter;
+import com.example.kcrimi.penitentman.presenter.SavedSearchListPresenter;
 import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 import com.example.ui_utils.recycler_view.InfiniteRecyclerListener;
 import com.example.ui_utils.recycler_view.decoration.DividerItemDecoration;
 
-public class ArticleListFragment extends BaseFragment {
+public class SavedSearchListFragment extends BaseFragment {
 
-    private ArticleListPresenter presenter = new ArticleListPresenter(this);
-    private ArticleAdapter adapter;
+    private SavedSearchListPresenter presenter = new SavedSearchListPresenter(this);
+    private SavedSearchAdapter adapter;
     private RecyclerView recyclerView;
 
-    public ArticleListFragment() {
+    public SavedSearchListFragment() {
     }
 
-    public static ArticleListFragment newInstance() {
-        return new ArticleListFragment();
+    public static SavedSearchListFragment newInstance() {
+        return new SavedSearchListFragment();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new ArticleAdapter(getContext(), presenter);
+        adapter = new SavedSearchAdapter(getContext(), presenter);
         recyclerView.setAdapter(adapter);
         presenter.onViewAttached();
     }
@@ -40,16 +40,10 @@ public class ArticleListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View view = super.onCreateView(inflater,container, savedInstanceState);
-            recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.addOnScrollListener(new InfiniteRecyclerListener() {
-                @Override
-                public void triggerCallback() {
-                    presenter.retrieveMoreArticles();
-                }
-            });
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        View view = super.onCreateView(inflater,container, savedInstanceState);
+        recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         return view;
     }
 
@@ -63,7 +57,7 @@ public class ArticleListFragment extends BaseFragment {
         return R.layout.fragment_feed;
     }
 
-    public void showArticleApiError() {
+    public void showSavedSearchError() {
         Toast.makeText(getContext(), R.string.error_retrieving_articles, Toast.LENGTH_SHORT).show();
     }
 }

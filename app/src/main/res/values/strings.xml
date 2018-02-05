@@ -9,4 +9,5 @@
 
     <!--Error Messages-->
     <string name="error_retrieving_articles">Encountered an error retrieving articles.</string>
+    <string name="error_retrieving_saved_searches">Encountered an error retrieving saved searches.</string>
 </resources>

@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return position == 0 ? ArticleListFragment.newInstance() : ArticleListFragment.newInstance();
+            return position == 0 ? ArticleListFragment.newInstance() : SavedSearchListFragment.newInstance();
         }
 
         @Override

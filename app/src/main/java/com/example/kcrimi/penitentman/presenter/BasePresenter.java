@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
  */
 
 public abstract class BasePresenter<T> implements Presenter {
-    protected WeakReference<T> view;
+    private WeakReference<T> view;
 
     public BasePresenter(T view) {
         this.view = new WeakReference<>(view);

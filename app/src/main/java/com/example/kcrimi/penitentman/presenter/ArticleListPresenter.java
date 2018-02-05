@@ -7,6 +7,7 @@ import com.example.kcrimi.penitentman.network.grailed.Grailed;
 import com.example.kcrimi.penitentman.network.grailed.model.ApiResponse;
 import com.example.kcrimi.penitentman.view.ArticleListFragment;
 import com.example.kcrimi.penitentman.view.adapter.ArticleAdapter;
+import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
             public void update(ApiResponse<List<Article>> response) {
                 lastLoadedPage = response.getMetadata().getPagination().getCurrentPage();
                 articles.addAll(response.getData());
-                getView().refreshArticleList();
+                getView().refreshList();
             }
         }, new ErrorCallback() {
             @Override

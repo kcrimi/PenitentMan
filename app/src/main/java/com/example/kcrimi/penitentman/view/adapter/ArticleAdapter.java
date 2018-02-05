@@ -69,7 +69,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         }
 
         public void setHeroImage(String url) {
-            Log.d("KEVIN", url);
             Glide.with(context)
                     .load(url)
                     .into(heroImage);

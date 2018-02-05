@@ -1,5 +1,6 @@
 package com.example.kcrimi.penitentman.model;
 
+import com.example.kcrimi.penitentman.network.grailed.Grailed;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -46,5 +47,13 @@ public class SavedSearch {
 
         }
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return Grailed.getResizedImageUrl(imageUrl, 100);
     }
 }
