@@ -53,19 +53,13 @@ public class Grailed {
         return instance;
     }
 
-    public void getArticles (Callback<ApiResponse<List<Article>>> callback, ErrorCallback errorCallback) {
-        getArticles(0, callback, errorCallback);
-    }
-
     public void getArticles(int page, final Callback<ApiResponse<List<Article>>> callback, final ErrorCallback errorCallback) {
         grailedService.getArticles(page).enqueue(new retrofit2.Callback<ApiResponse<List<Article>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Article>>> call, Response<ApiResponse<List<Article>>> response) {
                 if (response.isSuccessful()) {
-                    Log.d("KEVIN", "code "+response.code());
                     callback.update(response.body());
                 } else {
-                    Log.d("KEVIN", "err code "+response.code());
                     errorCallback.error(response, new IOException(response.message()));
                 }
             }

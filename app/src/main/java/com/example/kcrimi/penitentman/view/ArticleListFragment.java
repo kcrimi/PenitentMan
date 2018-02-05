@@ -32,6 +32,7 @@ public class ArticleListFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setRetainInstance(true);
         adapter = new ArticleAdapter(getContext(), presenter);
         recyclerView.setAdapter(adapter);
         presenter.onViewAttached();
