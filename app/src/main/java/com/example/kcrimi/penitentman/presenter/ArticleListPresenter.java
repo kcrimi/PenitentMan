@@ -12,6 +12,9 @@ import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import retrofit2.Response;
 
 /**
@@ -37,17 +40,23 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
     }
 
     public void retrieveArticlesForPage(int page) {
-        Grailed.getInstance().getArticles(page, new Callback<ApiResponse<List<Article>>>() {
+        Grailed.getInstance().getArticles(page, new SingleObserver<ApiResponse<List<Article>>>() {
             @Override
-            public void update(ApiResponse<List<Article>> response) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Article>> response) {
                 lastLoadedPage = response.getMetadata().getPagination().getCurrentPage();
                 articles.addAll(response.getData());
                 getView().refreshList();
             }
-        }, new ErrorCallback() {
+
             @Override
-            public void error(Response response, Throwable throwable) {
+            public void onError(Throwable e) {
                 getView().showArticleApiError();
+
             }
         });
     }

@@ -10,6 +10,8 @@ import com.example.kcrimi.penitentman.view.adapter.SavedSearchAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
 
 /**
@@ -34,15 +36,22 @@ public class SavedSearchListPresenter extends BasePresenter<SavedSearchListFragm
         }
 
         public void retrieveSavedSearches() {
-            Grailed.getInstance().getSavedSearches(new Callback<List<SavedSearch>>() {
+
+            Grailed.getInstance().getSavedSearches(new SingleObserver<List<SavedSearch>>() {
+
                 @Override
-                public void update(List<SavedSearch> response) {
-                    savedSearches.addAll(response);
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onSuccess(List<SavedSearch> results) {
+                    savedSearches.addAll(results);
                     getView().refreshList();
                 }
-            }, new ErrorCallback() {
+
                 @Override
-                public void error(Response response, Throwable throwable) {
+                public void onError(Throwable e) {
                     getView().showSavedSearchError();
                 }
             });

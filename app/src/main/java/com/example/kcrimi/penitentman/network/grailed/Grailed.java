@@ -23,10 +23,20 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -43,6 +53,7 @@ public class Grailed {
     private final GrailedService grailedService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
                 .create(GrailedService.class);
 
@@ -53,41 +64,24 @@ public class Grailed {
         return instance;
     }
 
-    public void getArticles(int page, final Callback<ApiResponse<List<Article>>> callback, final ErrorCallback errorCallback) {
-        grailedService.getArticles(page).enqueue(new retrofit2.Callback<ApiResponse<List<Article>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<List<Article>>> call, Response<ApiResponse<List<Article>>> response) {
-                if (response.isSuccessful()) {
-                    callback.update(response.body());
-                } else {
-                    errorCallback.error(response, new IOException(response.message()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<List<Article>>> call, Throwable t) {
-                t.printStackTrace();
-                errorCallback.error(null, t);
-            }
-        });
+    public void getArticles(int page, final SingleObserver<ApiResponse<List<Article>>> observer) {
+        grailedService.getArticles(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
-    public void getSavedSearches(final Callback<List<SavedSearch>> callback, final ErrorCallback errorCallback) {
-        grailedService.getSavedSearches().enqueue(new retrofit2.Callback<ApiResponse<List<SavedSearch>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<List<SavedSearch>>> call, Response<ApiResponse<List<SavedSearch>>> response) {
-                if (response.isSuccessful()) {
-                    callback.update(response.body().getData());
-                } else {
-                    errorCallback.error(response, new IOException(response.message()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<List<SavedSearch>>> call, Throwable t) {
-                errorCallback.error(null, t);
-            }
-        });
+    public void getSavedSearches(final SingleObserver<List<SavedSearch>>observer) {
+        grailedService.getSavedSearches()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<ApiResponse<List<SavedSearch>>, List<SavedSearch>>() {
+                    @Override
+                    public List<SavedSearch> apply(ApiResponse<List<SavedSearch>> listApiResponse) throws Exception {
+                        return listApiResponse.getData();
+                    }
+                })
+                .subscribe(observer);
     }
 
     public static String getResizedImageUrl(String url, int width) {
