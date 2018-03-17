@@ -43,7 +43,7 @@ public class Grailed {
         grailedService.getArticles(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(foo -> {});
     }
 
     public void getSavedSearches(final SingleObserver<List<SavedSearch>>observer) {
@@ -61,5 +61,9 @@ public class Grailed {
 
     public static String getResizedImageUrl(String url, int width) {
         return String.format(CDN_FORMAT, width, url);
+    }
+
+    public interface IGrailed {
+
     }
 }

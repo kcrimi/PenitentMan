@@ -66,4 +66,8 @@ public class ArticleListFragment extends BaseFragment {
     public void showArticleApiError() {
         Toast.makeText(getContext(), R.string.error_retrieving_articles, Toast.LENGTH_SHORT).show();
     }
+
+    public void displaySelection(String s) {
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+    }
 }

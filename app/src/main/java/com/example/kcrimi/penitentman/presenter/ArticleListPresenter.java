@@ -35,6 +35,10 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
     }
 
     public void retrieveArticlesForPage(int page) {
+        @Before
+                setup() {
+            Grailed g =
+        }
         Grailed.getInstance().getArticles(page, new SingleObserver<ApiResponse<List<Article>>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -43,9 +47,13 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
 
             @Override
             public void onSuccess(ApiResponse<List<Article>> response) {
-                lastLoadedPage = response.getMetadata().getPagination().getCurrentPage();
-                articles.addAll(response.getData());
-                getView().refreshList();
+                if (response.getData().size() > 0) {
+                    lastLoadedPage = response.getMetadata().getPagination().getCurrentPage();
+                    articles.addAll(response.getData());
+                    getView().refreshList();
+                } else {
+                    getView().showArticleApiError();
+                }
             }
 
             @Override
@@ -69,5 +77,9 @@ public class ArticleListPresenter extends BasePresenter<ArticleListFragment> {
         holder.setTitleText(article.getTitle());
         holder.setPublishedText(article.getPublishedAt());
         holder.setHeroImage(article.getHero());
+    }
+
+    public void selectArticle(int adapterPosition) {
+        getView().displaySelection("Selected "+articles.get(adapterPosition).getTitle());
     }
 }

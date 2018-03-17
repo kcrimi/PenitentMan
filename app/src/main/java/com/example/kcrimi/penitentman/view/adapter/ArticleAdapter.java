@@ -26,18 +26,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.vh_article, parent, false);
-        return new ArticleViewHolder(view);
+        ArticleViewHolder vh = new ArticleViewHolder(view);
+        view.setOnClickListener(vh);
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(final ArticleViewHolder holder, int position) {
         presenter.bindArticle(holder, position);
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO handle selecting article
-            }
-        });
     }
 
     @Override
@@ -45,7 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         return presenter.getArticlesCount();
     }
 
-    public class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ImageView heroImage;
         private final TextView titleText;
         private final TextView publishedText;
@@ -57,6 +53,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             heroImage = view.findViewById(R.id.hero);
             titleText = view.findViewById(R.id.title_text);
             publishedText = view.findViewById(R.id.published_text);
+
         }
 
         public void setTitleText(String name) {
@@ -71,6 +68,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             Glide.with(context)
                     .load(url)
                     .into(heroImage);
+        }
+
+        @Override
+        public void onClick(View v) {
+            presenter.selectArticle(getAdapterPosition());
         }
     }
 }
